@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 
-import uuid
-from datetime import datetime
-
 """
     Module representing the Base class of
     all the classes
