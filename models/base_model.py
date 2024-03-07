@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-
-import uuid
-from datetime import datetime
-
 """
     Module representing the Base class of
     all the classes
 """
+
+import uuid
+from datetime import datetime
+
 
 class BaseModel:
     """
@@ -19,7 +19,7 @@ class BaseModel:
         updated_at(datetime): time when the instance is updated
     """
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         """
         Initializes a new instance of the BaseModel class.
 
@@ -27,10 +27,16 @@ class BaseModel:
         created_at: The current date and time when the instance is created.
         updated_at: The same as created_at, initially set to the same value.
         """
-
         self.id = str(uuid.uuid4())
         self.created_at = datetime.utcnow()
         self.updated_at = datetime.utcnow()
+
+        if kwargs:
+            for key, value in kwargs.items():
+                if key != '__class__':
+                    setattr(self, key, value)
+                    if key == 'created_at' or key == 'updated_at':
+                        setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
 
     def save(self):
         """
@@ -50,11 +56,11 @@ class BaseModel:
         base_dict["updated_at"] = self.updated_at.isoformat()
 
         return base_dict
-    
+
     def __str__(self):
         """
         Returns a string representation of the instance.
         """
 
         class_name = self.__class__.__name__
-        return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
+        return f"[{class_name}] ({self.id}) {self.__dict__}"
