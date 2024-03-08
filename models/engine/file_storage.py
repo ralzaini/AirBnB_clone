@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+""" class FileStorage that serializes instances to a JSON file
+and deserializes JSON file to instances """
 
 import json
 import os
@@ -20,7 +22,7 @@ class FileStorage:
             obj (BaseModel): The instance of BaseModel to be added.
         """
         obj_cls_name = obj.__class__.__name__
-        key = "{}.{}".format(obj_cls_name, obj.id)
+        key = f"{obj_cls_name}.{obj.id}"
         FileStorage.__objects[key] = obj
 
     def all(self):
@@ -38,7 +40,7 @@ class FileStorage:
         """
         objs = FileStorage.__objects
         objs_dict = {}
-        for i in objs.keys():
+        for i in objs.items():
             objs_dict[i] = objs[i].to_dict()
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
             json.dump(objs_dict, f)
@@ -55,7 +57,7 @@ class FileStorage:
                     for key, value in objs_dict.items():
                         class_name, objs_dict = key.split('.')
                         cls = eval(class_name)
-                        inst = cls(**values)
+                        inst = cls(**value)
                         FileStorage.__objects[key] = inst
                 except Exception:
                     pass
