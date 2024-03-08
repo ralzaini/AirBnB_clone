@@ -12,13 +12,13 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb)"
 
-    def do_exit(self, arg):
+    def do_quit(self, arg):
         """
         Quit command to exit the program
         """
         return True
     
-    def help_exit(self, arg):
+    def help_quit(self, arg):
         """
         Print help message for exit command
         """
