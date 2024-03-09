@@ -16,26 +16,15 @@ airbnb_console.py or java -jar airbnb_console.jar, depending on the language and
 
 ## How to Use It
 
-"am not ok with this"
 
 Once the command interpreter is running, you can interact with it using various commands. Here are some basic commands to get you started:
 
-- **`list`**: Displays a list of all available Airbnb listings.
-- **`book <listing_id>`**: Books a specific listing by its ID.
-- **`cancel <booking_id>`**: Cancels a booking by its ID.
-- **`reserve <listing_id>`**: Reserves a specific listing by its ID.
-- **`exit`**: Exits the program.
-
-## Examples
-
-Here are some examples of how to use the command interpreter:
-
-- **Listing All Listings**:
-list
-
- This command will display all available Airbnb listings.
-
-- **Booking a Listing**:
-book 123
-
- This command books the listing with the ID `123`.
+Command |	Example
+Run the console |	./console.py
+Quit the console  |	(hbnb) quit
+Display the help for a command |	(hbnb) help <command>
+Create an object (prints its id) |	(hbnb) create <class>
+Show an object |	(hbnb) show <class> <id> or (hbnb) <class>.show(<id>)
+Destroy an object |	(hbnb) destroy <class> <id> or (hbnb) <class>.destroy(<id>)
+Show all objects, or all instances of a class |	(hbnb) all or (hbnb) all <class>
+Update an attribute of an object |	(hbnb) update <class> <id> <attribute name> "<attribute value>" or (hbnb) <class>.update(<id>, <attribute name>, "<attribute value>")
