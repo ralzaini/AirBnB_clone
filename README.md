@@ -19,7 +19,7 @@ Once the command interpreter is running, you can interact with it using various 
 
 | Command |	Example |
 | -------------- | ---------------|
-| Run the console |	./console.py|
+|Run the console |	./console.py|
 |Quit the console  |	(hbnb) quit|
 |Display the help for a command |	(hbnb) help "command"|
 |Create an object (prints its id) |	(hbnb) create "class"|

@@ -8,13 +8,14 @@ import sys
 import shlex
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
 
 class HBNBCommand(cmd.Cmd):
     """
     Console class for HBNB project
     """
     prompt = "(hbnb)"
-    valid_class = ["BaseModel"]
+    valid_class = ["BaseModel", "User", "State", "Review", "Place", "Amenity", "City"]
 
     def do_quit(self, arg):
         """
@@ -53,8 +54,8 @@ class HBNBCommand(cmd.Cmd):
         elif class_name not in self.valid_class:
             print("** class doesn't exist **")
         else:
-            new_inst = BaseModel()
-            new_inst.save()
+            new_inst = eval(class_name)()
+            storage.save()
             print(new_inst.id)
 
     def do_show(self, arg):
