@@ -13,7 +13,8 @@ class TestBaseModel(unittest.TestCase):
         """
         Test the initialization of BaseModel instances.
 
-        Checks if id, created_at, and updated_at attributes are initialized correctly.
+        Checks if id, created_at, and updated_at attributes
+        are initialized correctly
         """
 
         model = BaseModel()
@@ -40,7 +41,7 @@ class TestBaseModel(unittest.TestCase):
         """
         Test the to_dict method of BaseModel instances.
 
-        Checks if the to_dict method returns 
+        Checks if the to_dict method returns
         the expected dictionary representation of the instance.
         """
 
@@ -50,11 +51,13 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(model_dict, dict)
         self.assertEqual(model_dict["__class__"], 'BaseModel')
         self.assertEqual(model_dict['id'], model.id)
-        self.assertEqual(model_dict['created_at'], model.created_at.isoformat())
-        self.assertEqual(model_dict['updated_at'], model.updated_at.isoformat())
+        self.assertEqual(model_dict['created_at'],
+                         model.created_at.isoformat())
+        self.assertEqual(model_dict['updated_at'],
+                         model.updated_at.isoformat())
 
-    def test_str(self):
-        """
+        def test_str(self):
+            """
         Test the string representation (__str__) method of BaseModel instances.
 
         Checks if the string representation of the
