@@ -2,7 +2,6 @@
 """ class FileStorage that serializes instances to a JSON file
 and deserializes JSON file to instances """
 
-import importlib 
 import json
 import os
 from models.base_model import BaseModel
@@ -49,21 +48,21 @@ class FileStorage:
 
     def reload(self):
         """
-        Deserialize the JSON file to __objects
+        Deserializes the JSON file specified by __file_path,
+        and loads the instances of BaseModel into the __objects dictionary.
         """
         if not os.path.isfile(FileStorage.__file_path):
             return
         deserialized_objs = {}
-        with open(FileStorage.__file_path, "r", encoding="utf-8") as json_file:
-            dic_json = json.load(json_file)
-            for key, kwargs in dic_json.items():
-                class_name, obj_id = key.split(".")
-                module_name = f"models.{class_name.lower()}"
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, "r", encoding='utf-8') as f:
                 try:
-                    module = importlib.import_module(module_name)
-                    class_obj = getattr(module, class_name)
-                    obj = class_obj(**kwargs)
-                    deserialized_objs[key] = obj
-                except ImportError:
+                    objs_dict = json.load(f)
+                    for key, value in objs_dict.items():
+                        class_name, objs_dict = key.split('.')
+                        cls = eval(class_name)
+                        inst = cls(**value)
+                        FileStorage.__objects[key] = inst
+                        deserialized_objs[key] = obj
+                except Exception:
                     pass
-        FileStorage.__objects = deserialized_objs
