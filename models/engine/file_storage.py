@@ -5,6 +5,7 @@ and deserializes JSON file to instances """
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 class FileStorage:
     """
@@ -38,10 +39,10 @@ class FileStorage:
         Serializes the __objects dictionary into JSON format and,
         saves it to the file specified by __file_path.
         """
-        objs = FileStorage.__objects
+        a_objs = FileStorage.__objects
         objs_dict = {}
-        for i in objs.items():
-            objs_dict[i] = objs[i].to_dict()
+        for key, value in a_objs.items():
+            objs_dict[key] = value.to_dict()
         with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
             json.dump(objs_dict, f)
 
@@ -50,6 +51,7 @@ class FileStorage:
         Deserializes the JSON file specified by __file_path,
         and loads the instances of BaseModel into the __objects dictionary.
         """
+
         if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r", encoding='utf-8') as f:
                 try:
