@@ -1,6 +1,6 @@
 # AirBnB_clone Console Project
 
-The ALX Airbnb Console Project is a command-line interface (CLI) a program that allows users to interact with Airbnb data in a simple , intuitive and organized way. The program is designed for users who want to manage their Airbnb listings, bookings, and reservations from their terminal and for developer that they want to test there backend functionality without worring too much about the presentation aspect of the file.
+The ALX Airbnb Console Project is a command-line interface (CLI) a program that allows users to interact with Airbnb data in a simple , intuitive and organized way. The program is designed for users who want to manage their Airbnb users, palces ...
 
 ## Description of the Command Interpreter
 
@@ -10,9 +10,7 @@ Airbnb data through a series of commands.
 ## How to Start It
 
 Open Terminal: Navigate to the directory where the AirBnB_clone Console Project is located.
-Run the Program: Execute the program by typing ./airbnb_console (assuming the executable is named
-airbnb_console). If the program is not executable, you may need to run it with a command like python
-airbnb_console.py or java -jar airbnb_console.jar, depending on the language and packaging of your project.
+Run the Program: Execute the program by typing ./console
 
 ## How to Use It
 
