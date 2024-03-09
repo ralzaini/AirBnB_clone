@@ -5,6 +5,7 @@ Module for the user class
 """
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """This Class defines User Class which has public class attributes
     - email: string - empty string
