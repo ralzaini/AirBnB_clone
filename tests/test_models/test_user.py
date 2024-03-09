@@ -11,6 +11,7 @@ from models.user import User
 from models import storage
 from console import HBNBCommand
 
+
 class TestUserClass(unittest.TestCase):
     """Unittest class for testing class User"""
 
@@ -114,7 +115,9 @@ class TestUserClass(unittest.TestCase):
         self.assertEqual(format, cls_rp)
 
     def test_check_two_instances_with_dict(self):
-        """Test to check an instance created from a dict is different from another"""
+        """
+        Test to check an instance created from a dict is different from another
+        """
         dict_u1 = self.u1.to_dict()
         instance = User(**dict_u1)
         self.assertIsNot(self.u1, instance)

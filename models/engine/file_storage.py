@@ -7,6 +7,7 @@ import os
 from models.base_model import BaseModel
 from models.user import User
 
+
 class FileStorage:
     """
     Manages storage and retrieval of instances of BaseModel using JSON files.
@@ -34,6 +35,7 @@ class FileStorage:
             dict: A dictionary containing all instances of BaseModel.
         """
         return FileStorage.__objects
+
     def save(self):
         """
         Serializes the __objects dictionary into JSON format and,
