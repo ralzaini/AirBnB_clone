@@ -16,7 +16,8 @@ class HBNBCommand(cmd.Cmd):
     Console class for HBNB project
     """
     prompt = "(hbnb)"
-    valid_class = ["BaseModel", "User", "State", "Review", "Place", "Amenity", "City"]
+    valid_class = ["BaseModel", "User", "State", "Review", "Place", "Amenity",
+                    "City"]
 
     def do_quit(self, arg):
         """
