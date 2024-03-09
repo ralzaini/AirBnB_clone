@@ -42,16 +42,17 @@ class BaseModel:
                     else:
                         setattr(self, key, value)
 
-        models.storage.new(self)
-        models.storage.save()
+
+
 
 
     def save(self):
         """
         Updates the updated_at attribute with the current date and time.
         """
-
+        models.storage.new(self)
         self.updated_at = datetime.utcnow()
+
         models.storage.save()
 
     def to_dict(self):
