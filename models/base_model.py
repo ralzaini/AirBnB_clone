@@ -45,7 +45,7 @@ class BaseModel:
                     else:
                         setattr(self, key, value)
 
-        
+
 
     def save(self):
         """
@@ -59,12 +59,14 @@ class BaseModel:
         """
         Returns a dictionary representation of the instance.
         """
-
         base_dict = self.__dict__.copy()
-        base_dict["__class__"] = self.__class__.__name__
-        base_dict["created_at"] = self.created_at.isoformat()
-        base_dict["updated_at"] = self.updated_at.isoformat()
 
+
+        for key, value in base_dict.items():
+            if key in ["created_at", "updated_at"]:
+                base_dict[key] = value.isoformat()
+
+        base_dict["__class__"] = self.__class__.__name__
         return base_dict
 
     def __str__(self) -> str:
