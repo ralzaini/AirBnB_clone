@@ -59,9 +59,9 @@ class FileStorage:
                 try:
                     objs_dict = json.load(f)
                     for key, value in objs_dict.items():
-                        class_name, objs_dict = key.split('.')
+                        class_name, obj_id = key.split('.')
                         cls = eval(class_name)
                         inst = cls(**value)
                         FileStorage.__objects[key] = inst
-                except Exception:
-                    pass
+                except Exception as e:
+                    print(f"Error during deserialization: {e}")
