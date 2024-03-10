@@ -7,7 +7,7 @@
 
 import uuid
 from datetime import datetime
-from models import storage
+import models
 TIMEF = "%Y-%m-%dT%H:%M:%S.%f"
 
 
@@ -31,9 +31,6 @@ class BaseModel:
         updated_at: The same as created_at, initially set to the same value.
         """
 
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.utcnow()
-        self.updated_at = datetime.utcnow()
         if kwargs:
             for key, value in kwargs.items():
                 if key != '__class__':
@@ -42,7 +39,12 @@ class BaseModel:
                     else:
                         setattr(self, key, value)
 
-        storage.new(self)
+            models.storage.new(self)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+            models.storage.new(self)
 
     def save(self):
         """
@@ -50,7 +52,7 @@ class BaseModel:
         """
 
         self.updated_at = datetime.utcnow()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
