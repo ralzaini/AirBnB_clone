@@ -25,7 +25,7 @@ class FileStorage:
         """
         obj_cls_name = obj.__class__.__name__
         key = f"{obj_cls_name}.{obj.id}"
-        FileStorage.__objects[key] = obj
+        self.__objects[key] = obj
 
     def all(self):
         """
@@ -45,7 +45,7 @@ class FileStorage:
         objs_dict = {}
         for key, value in a_objs.items():
             objs_dict[key] = value.to_dict()
-        with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+        with open(self.__file_path, "w", encoding="utf-8") as f:
             json.dump(objs_dict, f)
 
     def reload(self):
@@ -55,7 +55,7 @@ class FileStorage:
         """
 
         if os.path.isfile(FileStorage.__file_path):
-            with open(FileStorage.__file_path, "r", encoding='utf-8') as f:
+            with open(self.__file_path, "r", encoding='utf-8') as f:
                 try:
                     objs_dict = json.load(f)
                     for key, value in objs_dict.items():
