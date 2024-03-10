@@ -64,4 +64,4 @@ class FileStorage:
                         inst = cls(**value)
                         FileStorage.__objects[key] = inst
                 except Exception:
-                    print(f"Error during deserialization: {e}")
+                    pass
