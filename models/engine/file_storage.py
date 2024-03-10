@@ -59,7 +59,7 @@ class FileStorage:
                 try:
                     objs_dict = json.load(f)
                     for key, value in objs_dict.items():
-                        class_name, obj_id = key.split('.')
+                        class_name, objs_dict = key.split('.')
                         cls = eval(class_name)
                         inst = cls(**value)
                         FileStorage.__objects[key] = inst
