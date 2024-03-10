@@ -23,7 +23,12 @@ class FileStorage:
         Args:
             obj (BaseModel): The instance of BaseModel to be added.
         """
-        self.__objects[f"{obj.__class__.__name__}.{obj.id}"] = obj
+        """Sets new obj in __objects dictionary."""
+        if obj.id in type(self).__objects:
+            print("exists")
+            return
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
+        type(self).__objects[key] = obj
 
     def all(self):
         """
