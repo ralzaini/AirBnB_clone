@@ -117,19 +117,15 @@ class HBNBCommand(cmd.Cmd):
         """
         objs_dict = storage.all()
         args = shlex.split(arg)
-
-        if not args:
-            instances = objs_dict.values()
+        if len(args) == 0:
+            for key, value in objs_dict.items():
+                print(str(value))
         elif args[0] not in self.valid_class:
             print("** class doesn't exist **")
-            return
         else:
-            instances = []
             for key, value in objs_dict.items():
                 if key.split('.')[0] == args[0]:
-                    instances.append(value)
-            for instance in instances:
-                print(str(instance))
+                    print(str(value))
 
     def do_update(self, arg):
         """
