@@ -1,7 +1,3 @@
-#!/usr/bin/python3
-""" class FileStorage that serializes instances to a JSON file
-and deserializes JSON file to instances """
-
 import json
 import os
 from models.base_model import BaseModel
@@ -53,15 +49,17 @@ class FileStorage:
         Deserializes the JSON file specified by __file_path,
         and loads the instances of BaseModel into the __objects dictionary.
         """
-
         if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, "r", encoding='utf-8') as f:
                 try:
                     objs_dict = json.load(f)
                     for key, value in objs_dict.items():
-                        class_name, objs_dict = key.split('.')
+                        class_name, obj_id = key.split('.')
                         cls = eval(class_name)
                         inst = cls(**value)
                         FileStorage.__objects[key] = inst
                 except Exception:
                     pass
+        else:
+            with open(FileStorage.__file_path, "w", encoding="utf-8") as f:
+                pass
