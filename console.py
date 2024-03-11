@@ -117,6 +117,8 @@ class HBNBCommand(cmd.Cmd):
         """
         objs_dict = storage.all()
         args = shlex.split(arg)
+        print(f"{args = }")
+
         if len(args) == 0:
             for key, value in objs_dict.items():
                 print(str(value))
@@ -127,6 +129,33 @@ class HBNBCommand(cmd.Cmd):
                 if key.split('.')[0] == args[0]:
                     print(str(value))
 
+    def default(self, arg):
+        """
+        Default behavior for CMD module for invalid syntax
+        """
+        args_list = arg.split('.')
+        print(f"{args_list = }")
+
+        class_name = args_list[0]
+        print(f"{class_name = }")
+
+        args = args_list[1].split('(')
+        instance = args[0]
+        print(f"{instance = }")
+
+        dict_method = {
+        'all': self.do_all,
+        'show': self.do_show,
+        'update': self.do_update,
+        'destroy': self.do_destroy
+        }
+
+        if instance in dict_method.keys():
+            return dict_method[instance](class_name)
+        
+        print("*** Unknown syntax: {}".format(arg))
+        return False
+    
     def do_update(self, arg):
         """
         Updates an instance based on the class name and id by adding,
