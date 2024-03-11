@@ -138,48 +138,31 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         args = shlex.split(arg)
-
-        if len(args) < 2:
-            if len(args) < 1:
-                print("** class name missing **")
-            if len(args) < 2:
-                print("** instance id missing **")
-            return
-        class_name = args[0]
-        instance_id = args[1]
-
-        if not class_name:
+        if len(args) == 0:
             print("** class name missing **")
-            return
-        if not instance_id:
-            print("** instance id missing **")
-            return
-        if class_name not in self.valid_class:
+        elif args[0] not in self.valid_class:
             print("** class doesn't exist **")
-            return
-        
-        objs_dict = storage.all()
-        key = "{}.{}".format(class_name, instance_id)
-
-        if key not in objs_dict:
-            print("** no instance found **")
-            return
-
-        if len(args) < 4:
-            print("** attribute name missing **")
-            return
-
-        obj = objs_dict[key]
-        attribute_name = args[2]
-        attribute_value = args[3]
-
-        try:
-            attribute_value = eval(attribute_value)
-        except Exception:
-            pass
-
-        setattr(obj, attribute_name, attribute_value)
-        obj.save()
+        elif len(args) < 2:
+            print("** instance id missing **")
+        else:
+            objs_dict = storage.all()
+            key = "{}.{}".format(args[0], args[1])
+            if key not in objs_dict:
+                print("** no instance found **")
+            elif len(args) < 3:
+                print("** attribute name missing **")
+            elif len(args) < 4:
+                print("** value is missing **")
+            else:
+                obj = objs_dict[key]
+                attribute_name = args[2]
+                attribute_value = args[3]
+                try:
+                    attribute_value = eval(attribute_value)
+                except Exception:
+                    pass
+                setattr(obj, attribute_name, attribute_value)
+                obj.save()
 
 
 if __name__ == "__main__":
