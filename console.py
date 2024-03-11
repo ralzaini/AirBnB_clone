@@ -147,7 +147,8 @@ class HBNBCommand(cmd.Cmd):
         'all': self.do_all,
         'show': self.do_show,
         'update': self.do_update,
-        'destroy': self.do_destroy
+        'destroy': self.do_destroy,
+        'count': self.do_count
         }
 
         if instance in dict_method.keys():
@@ -188,6 +189,31 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 setattr(obj, attribute_name, attribute_value)
                 obj.save()
+
+    def do_count(self, arg):
+        """
+        Update your command interpreter (console.py)
+        to retrieve the number of instances of a class: <class name>.count().
+        """
+
+        objs = storage.all()
+        args = shlex.split(arg)
+        if arg:
+            class_name = args[0]
+
+        total = 0
+        if args:
+            if class_name in self.valid_class:
+                for obj in objs.values():
+                    if obj.__class__.__name__ == class_name:
+                        total += 1
+                print(total)
+            else:
+                print("** invalid class name **")
+        else:
+            print("** class name missing **")
+
+
 
 
 if __name__ == "__main__":
