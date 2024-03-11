@@ -42,8 +42,8 @@ class BaseModel:
             models.storage.new(self)
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow().isoformat()[-3]
-            self.updated_at = datetime.utcnow().isoformat()[-3]
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
             models.storage.new(self)
 
     def save(self):
@@ -61,8 +61,8 @@ class BaseModel:
 
         base_dict = self.__dict__.copy()
         base_dict["__class__"] = self.__class__.__name__
-        base_dict["created_at"] = self.created_at.isoformat()[-3]
-        base_dict["updated_at"] = self.updated_at.isoformat()[-3]
+        base_dict["created_at"] = self.created_at.strftime(TIMEF)[:-3]
+        base_dict["updated_at"] = self.updated_at.strftime(TIMEF)[:-3]
 
         return base_dict
 
