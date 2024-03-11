@@ -9,6 +9,11 @@ import shlex
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
+from models.state import State
+from models.review import Review
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
 
 
 class HBNBCommand(cmd.Cmd):
@@ -112,19 +117,15 @@ class HBNBCommand(cmd.Cmd):
         """
         objs_dict = storage.all()
         args = shlex.split(arg)
-
-        if not args:
-            instances = objs_dict.values()
+        if len(args) == 0:
+            for key, value in objs_dict.items():
+                print(str(value))
         elif args[0] not in self.valid_class:
             print("** class doesn't exist **")
-            return
         else:
-            instances = []
             for key, value in objs_dict.items():
                 if key.split('.')[0] == args[0]:
-                    instances.append(value)
-            for instance in instances:
-                print(str(instance))
+                    print(str(value))
 
     def do_update(self, arg):
         """
@@ -133,44 +134,31 @@ class HBNBCommand(cmd.Cmd):
         Ex: $ update BaseModel 1234-1234-1234 email "aibnb@mail.com".
         """
         args = shlex.split(arg)
-
-        if len(args) < 2:
-            print("** class name and/or instance id missing **")
-            return
-
-        class_name = args[0]
-        instance_id = args[1]
-
-        if class_name not in self.valid_class:
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in self.valid_class:
             print("** class doesn't exist **")
-            return
-
-        if not instance_id:
+        elif len(args) < 2:
             print("** instance id missing **")
-            return
-
-        objs_dict = storage.all()
-        key = "{}.{}".format(class_name, instance_id)
-
-        if key not in objs_dict:
-            print("** no instance found **")
-            return
-
-        if len(args) < 4:
-            print("** attribute name and/or value missing **")
-            return
-
-        obj = objs_dict[key]
-        attribute_name = args[2]
-        attribute_value = args[3]
-
-        try:
-            attribute_value = eval(attribute_value)
-        except Exception:
-            pass
-
-        setattr(obj, attribute_name, attribute_value)
-        obj.save()
+        else:
+            objs_dict = storage.all()
+            key = "{}.{}".format(args[0], args[1])
+            if key not in objs_dict:
+                print("** no instance found **")
+            elif len(args) < 3:
+                print("** attribute name missing **")
+            elif len(args) < 4:
+                print("** value is missing **")
+            else:
+                obj = objs_dict[key]
+                attribute_name = args[2]
+                attribute_value = args[3]
+                try:
+                    attribute_value = eval(attribute_value)
+                except Exception:
+                    pass
+                setattr(obj, attribute_name, attribute_value)
+                obj.save()
 
 
 if __name__ == "__main__":
