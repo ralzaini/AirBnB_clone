@@ -42,8 +42,8 @@ class BaseModel:
             models.storage.new(self)
         else:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
+            self.created_at = datetime.utcnow().isoformat
+            self.updated_at = datetime.utcnow().isoformat
             models.storage.new(self)
 
     def save(self):
